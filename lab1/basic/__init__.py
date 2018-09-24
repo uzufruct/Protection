@@ -1,6 +1,5 @@
 import random
 import math
-import bisect
 import time
 
 
@@ -55,37 +54,42 @@ def diff_hell(key_a, key_b):
     return quick_power(y_b, key_a[0], key_b[1]), quick_power(y_a, key_a[1], key_b[1])
 
 
-# def steps(y, a, p, m, k):
-#     if m * k <= p:
-#         print('Error: bad arguments')
-#         return -1
-#
-#     row = []
-#     y %= p
-#     am = a % p
-#     row.append([y, 0])
-#     for i in (1, m):
-#         row.append([(y * a) % p, i])
-#         a = (a * am) % p
-#
-#     max = row[row.__len__() - 1]
-#     maxi = 1
-#     for i in (i, k + 1):
-#         i_max = bisect.bisect_left(row, [a, 0])
-#         if row[i_max][0] == a:
-#             maxi = i
-#             break
-#         else:
-#             max = row[row.__len__() - 1]
-#         a = (a * am) % p
-#     if max == row[row.__len__() - 1]:
-#         print("Error: bad rows")
-#     return (maxi * m) - max[1]
+def steps(y, a, p, m, k):
+    if m * k <= p:
+        print('Error: bad arguments')
+        return -1
+
+    mrow = []
+    t = y % p
+    mrow.append([t, 0])
+    for j in range(1, m):
+        t = (t * a) % p
+        mrow.append([t, 0])
+    print(mrow)
+
+    krow = []
+    for i in range(1, k + 1):
+        krow.append([quick_power(a, i * m, p), 1])
+    print(krow)
+
+    for i in range(1, k + 1):
+        for j in range(0, m):
+            if krow[i - 1][0] == mrow[j][0]:
+                print(krow[i - 1], i)
+                print(mrow[j], j)
+                x = i * m - j
+                new = mrow + krow
+                print(new)
+                new.sort()
+                print(new)
+                return x
+
+    return -1
 
 
 def check_prime(prime):
     ok = True
-    for i in (2, int(math.sqrt(prime))):
+    for i in range(2, int(math.sqrt(prime))):
         if prime % i == 0:
             ok = False
     return ok
