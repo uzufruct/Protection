@@ -4,6 +4,9 @@ import time
 
 
 def quick_power(a, b, m):
+    # print("a: " + str(a))
+    # print("b: " + str(b))
+    # print("m: " + str(m))
     res = 1
     a %= m
     while b != 0:
@@ -29,6 +32,8 @@ def gcd(a, b):
 
 
 def common_euclid(a, b):
+    # print("a: " + str(a))
+    # print("b: " + str(b))
     if a < b:
         a, b = b, a
 
@@ -55,6 +60,9 @@ def diff_hell(key_a, key_b):
 
 
 def steps(y, a, p, m, k):
+    # print(p)
+    # print(m)
+    # print(k)
     if m * k <= p:
         print('Error: bad arguments')
         return -1
@@ -64,24 +72,24 @@ def steps(y, a, p, m, k):
     mrow.append([t, 0])
     for j in range(1, m):
         t = (t * a) % p
-        mrow.append([t, 0])
-    print(mrow)
+        mrow.append([t, j])
+    # print(mrow)
+    mrow.sort()
+    # print(mrow)
 
     krow = []
     for i in range(1, k + 1):
-        krow.append([quick_power(a, i * m, p), 1])
-    print(krow)
+        krow.append([quick_power(a, i * m, p), i])
+    # print(krow)
+    krow.sort()
+    # print(krow)
 
-    for i in range(1, k + 1):
-        for j in range(0, m):
-            if krow[i - 1][0] == mrow[j][0]:
-                print(krow[i - 1], i)
-                print(mrow[j], j)
-                x = i * m - j
-                new = mrow + krow
-                print(new)
-                new.sort()
-                print(new)
+    for i in krow:
+        for j in mrow:
+            if i[0] == j[0]:
+                # print(i)
+                # print(j)
+                x = i[1] * m - j[1]
                 return x
 
     return -1
@@ -97,8 +105,9 @@ def check_prime(prime):
 
 def get_prime():
     while 1:
+        time.sleep(0.00001)
         random.seed(time.time())
-        p = random.randint(1, 10000)
+        p = random.randint(1, 100000000)
         if check_prime(p):
             return p
 
@@ -114,20 +123,22 @@ def get_prime_pair():
 
 
 def get_g(p, q):
+    time.sleep(0.0000001)
     random.seed(time.time())
     g = 2 + random.randint(1, p)
     ok = False
     while not ok:
-        if quick_power(g, q, p) == 1 and (g > 1) and (g < (p - 1)):
+        if quick_power(g, q, p) != 1 and (g > 1) and (g < (p - 1)):
             ok = True
-        g = 2 + random.randint(1, p)
+        else:
+            g = 2 + random.randint(1, p)
     return g
 
 
-def get_cd(c, p):
-    random.seed(time.time())
-    ans = common_euclid(c, p - 1)
-    while ans[0] != 1:
-        c = 1 + random.randint(1, p - 1)
-        ans = common_euclid(c, ans[2])
-    return c, ans[2]
+# def get_cd(c, p):
+#     random.seed(time.time())
+#     ans = common_euclid(c, p - 1)
+#     while ans[0] != 1:
+#         c = 1 + random.randint(1, p - 1)
+#         ans = common_euclid(c, ans[2])
+#     return c, ans[2]
