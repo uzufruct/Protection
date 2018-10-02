@@ -107,7 +107,8 @@ def get_prime():
     while 1:
         time.sleep(0.00001)
         random.seed(time.time())
-        p = random.randint(1, 100000000)
+        # prime number must be greater than any number can be represented in 1 byte
+        p = random.randint(256, 10000)
         if check_prime(p):
             return p
 
@@ -135,10 +136,18 @@ def get_g(p, q):
     return g
 
 
-# def get_cd(c, p):
-#     random.seed(time.time())
-#     ans = common_euclid(c, p - 1)
-#     while ans[0] != 1:
-#         c = 1 + random.randint(1, p - 1)
-#         ans = common_euclid(c, ans[2])
-#     return c, ans[2]
+def get_cd(c, p):
+    ans = common_euclid(c, p - 1)
+    while c * ans[2] % (p - 1) != 1:
+        random.seed(time.time())
+        c = random.randint(2, int(math.sqrt(p)))
+        if c % 2 == 0:
+            c += 1
+        ans = common_euclid(c, p - 1)
+    return c, ans[2]
+
+
+def rand(a, b):
+    time.sleep(0.0000001)
+    random.seed(time.time())
+    return random.randint(a, b)
