@@ -151,3 +151,9 @@ def rand(a, b):
     time.sleep(0.0000001)
     random.seed(time.time())
     return random.randint(a, b)
+
+
+def vernam_key(size):
+    a = pow(10, size - 1)
+    b = pow(10, size) - 1
+    return rand(a, b)
