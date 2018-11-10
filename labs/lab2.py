@@ -2,10 +2,7 @@ from protection import cipher
 
 
 # name = "Немного новостей.pdf"
-# name = "Немного новостей.pdf.rsa"
-# name = "Немного новостей.pdf.vrn"
-# name = "Немного новостей.pdf.elg"
-name = "Немного новостей.pdf.shmr"
+name = "Немного новостей.pdf.elg"
 
 res = [name, ""]
 
@@ -27,16 +24,14 @@ while (res[0][-len(".rsa"):] == ".rsa" or res[0][-len(".shmr"):] == ".shmr"
             print(res)
 
 
-# res = rsa_handler(name)
+# res = cipher.rsa_handler(name)
 # print(res)
-
-# res = shamir_handler(name)
+#
+# res = cipher.shamir_handler(name)
 # print(res)
-
-# res = elgamal_handler(name)
+#
+# res = cipher.elgamal_handler(name)
 # print(res)
-
-# res = vernam_handler(name)
+#
+# res = cipher.vernam_handler(name)
 # print(res)
-
-

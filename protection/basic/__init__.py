@@ -31,6 +31,7 @@ def gcd(a, b):
     return a
 
 
+# return: u[gcd(a, b), x, y]
 def common_euclid(a, b):
     # print("a: " + str(a))
     # print("b: " + str(b))
