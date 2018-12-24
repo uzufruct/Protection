@@ -158,3 +158,12 @@ def vernam_key(size):
     a = pow(10, size - 1)
     b = pow(10, size) - 1
     return rand(a, b)
+
+
+def get_common_inverse(a):
+    for b in range(int(math.sqrt(a)), a - 1):
+        ans = common_euclid(a, b)
+        if ans[0] == 1:
+            return b
+    return 2
+
